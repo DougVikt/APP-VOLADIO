@@ -10,8 +10,23 @@ try :
     loop = True
     volume_atual = []
     
+    def posicao(tela , tamanho=[20 , 20] , alterar= [0 , 0]):
+                
+        tela_vert = tela.winfo_screenheight()
+        tela_hori = tela.winfo_screenwidth()
+        posi_x = (( tela_hori - tamanho[0])//2) + alterar[0]
+        posi_y = (( tela_vert - tamanho[1])//2) + alterar[1]
+        print(posi_x , posi_y)
+        return tela.geometry(f'{tamanho[0]}x{tamanho[1]}+{posi_x}+{posi_y}')     
+        
+    
+    def menu():
+        janela = tk.Tk()
+        janela.attributes('-topmost' , True)
+        
+    
     def mensage_volume(volume):
-       
+        
         janela = tk.Tk()
         janela.attributes("-topmost", True)
         janela.overrideredirect(True)
@@ -19,12 +34,13 @@ try :
         
         
         label = tk.Label(janela, text='Volume : ' + str(volume), font=("Arial", 16), bg="white")
-        label.pack(padx=10, pady=10)
+        label.pack(padx=10 , pady=10)
         
-        janela.geometry('+740+830')
+        posicao(janela , [185,55], [-15 , 415])
         janela.after( 100, lambda: janela.destroy())
         
-        janela.mainloop() 
+        janela.mainloop()      
+        
    
    
     def aumenta_volume():
