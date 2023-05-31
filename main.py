@@ -1,5 +1,7 @@
+
 from pycaw.pycaw import AudioUtilities, ISimpleAudioVolume 
 from tkinter import messagebox as msb 
+import inicializar as ic
 import keyboard as kb
 import tkinter as tk
 import pymsgbox as pbx
@@ -187,6 +189,7 @@ try :
 
 
     if __name__ == "__main__": 
+        ic.raiz()
         menu()
         kb.on_press(atalhos)
         kb.wait()
