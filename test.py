@@ -35,6 +35,8 @@ def menu():
                                     \nAlt + m  , para o Mudo
                                     \nAlt + n , para acessar o menu''')
         
+    def comd_escond():
+        janela.withdraw()
     
     def comd_sair():
         
@@ -46,13 +48,16 @@ def menu():
         
     
     bt_instru = tk.Button(janela , text='INSTRUÇÕES' , command=msn_instrucao , width=20 , height=2)
-    bt_instru.pack(padx=10 , pady=10 ,)
+    bt_instru.pack(padx=10 , pady=10 )
     
     bt_comando = tk.Button(janela , text='COMANDOS' , command=msn_comando , width=20 , height=2)
-    bt_comando.pack(padx=10 , pady=10 ,)
+    bt_comando.pack(padx=10 , pady=10 )
+    
+    bt_susp = tk.Button(janela , text='ESCONDER' , command=comd_escond , width=15 , height=1)
+    bt_susp.pack(padx=10 , pady=15)
     
     bt_sair = tk.Button(janela , text='SAIR' , command=comd_sair , width=7 , height=1)
-    bt_sair.pack(padx=10 , pady=30 ,)
+    bt_sair.pack(padx=10 , pady=30 )
     
     janela.mainloop()
     

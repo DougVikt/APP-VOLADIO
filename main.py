@@ -16,32 +16,83 @@ try :
         tela_hori = tela.winfo_screenwidth()
         posi_x = (( tela_hori - tamanho[0])//2) + alterar[0]
         posi_y = (( tela_vert - tamanho[1])//2) + alterar[1]
-        print(posi_x , posi_y)
         return tela.geometry(f'{tamanho[0]}x{tamanho[1]}+{posi_x}+{posi_y}')     
         
     
     def menu():
+        
+        
         janela = tk.Tk()
         janela.attributes('-topmost' , True)
+        janela.title('V-Audio')
+        janela.configure(bg='dodger blue')
+        posicao(janela , [240,260])
         
-    
+     
+            
+        def msn_instrucao():
+            
+            msb.showinfo('INSTRUÇÕES :' , 
+                        '''Para execução correta da aplicação leia os comandos . 
+            \nPara sair do menu aperte no botão ESCONDER , assim o app ficara em execução em segundo plano , mas se apertar no 'X' , a aplicação sera fechada .
+            \nPara fechar o app pode se pelo 'X' ou clicando no botão SAIR ambos no menu .''')
+            
+            
+        def msn_comando():
+        
+            msb.showwarning('COMANDOS :' , '''Alt + ' + ' , para Almentar
+                                        \nAlt + ' - ' , para Diminuir
+                                        \nAlt + m  , para o Mudo
+                                        \nAlt + n , para acessar o menu''')
+            
+        def comd_escond():
+            janela.destroy()
+            
+        
+        def comd_sair():
+            
+            resposta = msb.askyesno('FECHAR ?' , 'Quer fechar a aplicação ?')
+            if resposta :
+                pbx.alert('Ate a proxima !', 'AVISO')
+                os._exit(1)
+                
+            
+            
+        
+        bt_instru = tk.Button(janela , text='INSTRUÇÕES' , command=msn_instrucao , width=20 , height=2)
+        bt_instru.pack(padx=10 , pady=10 )
+        
+        bt_comando = tk.Button(janela , text='COMANDOS' , command=msn_comando , width=20 , height=2)
+        bt_comando.pack(padx=10 , pady=10 )
+        
+        bt_susp = tk.Button(janela , text='ESCONDER' , command=comd_escond , width=15 , height=1)
+        bt_susp.pack(padx=10 , pady=15)
+        
+        bt_sair = tk.Button(janela , text='SAIR' , command=comd_sair , width=7 , height=1)
+        bt_sair.pack(padx=10 , pady=30 )
+        
+        janela.mainloop()
+        
+        
+        
     def mensage_volume(volume):
         
         janela = tk.Tk()
+        volume_var = tk.StringVar()
         janela.attributes("-topmost", True)
         janela.overrideredirect(True)
         janela.configure(bg="white")
+        volume_var.set(f'Volume : {volume}')
         
-        
-        label = tk.Label(janela, text='Volume : ' + str(volume), font=("Arial", 16), bg="white")
+        label = tk.Label(janela, textvariable=volume_var, font=("Arial", 16), bg="white")
         label.pack(padx=10 , pady=10)
         
         posicao(janela , [185,55], [-15 , 415])
-        janela.after( 100, lambda: janela.destroy())
+        janela.after( 200, lambda: janela.destroy())
         
         janela.mainloop()      
         
-   
+
    
     def aumenta_volume():
         
@@ -66,6 +117,7 @@ try :
             pass
         
             
+            
     def diminui_volume():
         
         global mensage_d , mensage_a
@@ -88,6 +140,8 @@ try :
         except UnboundLocalError:
             pass
                    
+                   
+                   
     def mudo_on_off() :
         
         global volume_atual 
@@ -97,18 +151,19 @@ try :
             for session in sessions :
                 volume = session._ctl.QueryInterface(ISimpleAudioVolume)
                 new_volume = volume.GetMasterVolume()
-                volume_atual.append(new_volume)
+                
+                volume_atual.insert(0 ,new_volume)
                 if len(volume_atual) > 3 :
-                    volume_atual.pop()
+                    volume_atual.pop() 
                     
                 if new_volume != 0.0 :
                     volume.SetMasterVolume(0 , None)
                     msm = True
                 else :
-                    volume.SetMasterVolume(volume_atual[0] , None)
+                    volume.SetMasterVolume(volume_atual[2] , None)
                     msm = False
             
-            volume_msm = int(volume_atual[0] * 100)
+            volume_msm = int(volume_atual[2] * 100)
             if msm :
                 mensage_volume('MUDO')
             else :
@@ -116,6 +171,7 @@ try :
            
         except UnboundLocalError :
             pass
+        
         
                 
     def atalhos(event):
@@ -126,21 +182,12 @@ try :
             aumenta_volume()
         elif kb.is_pressed('alt') and kb.is_pressed('m') :
             mudo_on_off()
-        if kb.is_pressed('alt') and kb.is_pressed('p') :
-            encerrar = msb.askyesno("ENCERRANDO !" , 'Deseja encerrar este aplicativo ?')
-            if encerrar :
-                os._exit(1)
-            else :
-                pass
+        if kb.is_pressed('alt') and kb.is_pressed('n') :
+            menu()
 
 
     if __name__ == "__main__": 
-        msb.showinfo('INICIANDO : ' , "Aparti de agora o Aplicativo estará em execução")
-        msb.showwarning('COMANDOS :' , '''Para alterar o volume use :
-                                        \nAlt + '+' , para Almentar
-                                        \nAlt + '-' , para Diminuir
-                                        \nAlt + m  , para o Mudo
-                                        \nAlt + p , para encerrar ''')
+        menu()
         kb.on_press(atalhos)
         kb.wait()
 
