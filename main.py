@@ -8,6 +8,7 @@ import pymsgbox as pbx
 import os
 
 try :
+    # variaveis globais
     mensage_d = mensage_a = True
     loop = True
     volume_atual = []
@@ -28,16 +29,18 @@ try :
         janela.attributes('-topmost' , True)
         janela.title('V-Audio')
         janela.configure(bg='dodger blue')
-        posicao(janela , [240,260])
+        posicao(janela , [240,300])
         
      
             
         def msn_instrucao():
             
             msb.showinfo('INSTRUÇÕES :' , 
-                        '''Para execução correta da aplicação leia os comandos . 
-            \nPara sair do menu aperte no botão ESCONDER , assim o app ficara em execução em segundo plano , mas se apertar no 'X' , a aplicação sera fechada .
-            \nPara fechar o app pode se pelo 'X' ou clicando no botão SAIR ambos no menu .''')
+                        '''Para execução correta da aplicação leia os comandos .
+            \nPor favor não excluir o atalho do app , em caso de fechamento o atalho e a opção para abrir o app novamente .  
+            \nPara sair do menu aperte no botão ESCONDER ou no 'X', assim o app ficara em execução em segundo plano .
+            \nPara fechar o app , so clicando no botão SAIR no menu .
+            \nPara desinstalar o app use o botão DESINSTALAR no menu , assim não dexará resto de arquivos no seu computador .''')
             
             
         def msn_comando():
@@ -45,7 +48,7 @@ try :
             msb.showwarning('COMANDOS :' , '''Alt + ' + ' , para Almentar
                                         \nAlt + ' - ' , para Diminuir
                                         \nAlt + m  , para o Mudo
-                                        \nAlt + n , para acessar o menu''')
+                                        \nAlt + z , para acessar o menu''')
             
         def comd_escond():
             janela.destroy()
@@ -58,7 +61,11 @@ try :
                 pbx.alert('Ate a proxima !', 'AVISO')
                 os._exit(1)
                 
-            
+        
+        def comd_desi():
+            desins = msb.askokcancel('DESINSTALAR ?' , 'Tem certeza que quer desinstalar o V-Audio ?')
+            if desins :
+                ic.desinstalar()
             
         
         bt_instru = tk.Button(janela , text='INSTRUÇÕES' , command=msn_instrucao , width=20 , height=2)
@@ -70,8 +77,11 @@ try :
         bt_susp = tk.Button(janela , text='ESCONDER' , command=comd_escond , width=15 , height=1)
         bt_susp.pack(padx=10 , pady=15)
         
-        bt_sair = tk.Button(janela , text='SAIR' , command=comd_sair , width=7 , height=1)
+        bt_sair = tk.Button(janela , text='SAIR' , command=comd_sair , width=7 , height=1 , bg='gold')
         bt_sair.pack(padx=10 , pady=30 )
+        
+        bt_des = tk.Button(janela , text='DESINSTALAR' , command=comd_desi , width=10 , height=1 ,bg='red2')
+        bt_des.pack(padx=10 , pady=8 )
         
         janela.mainloop()
         
@@ -184,15 +194,15 @@ try :
             aumenta_volume()
         elif kb.is_pressed('alt') and kb.is_pressed('m') :
             mudo_on_off()
-        if kb.is_pressed('alt') and kb.is_pressed('n') :
+        if kb.is_pressed('alt') and kb.is_pressed('z') :
             menu()
 
 
     if __name__ == "__main__": 
-        ic.raiz()
+        ic.instalar()
         menu()
         kb.on_press(atalhos)
         kb.wait()
 
 except IOError as erro:
-    msb.showerror(title='Erro ao Executar ' , message=erro) 
+    msb.showerror('Erro ao Executar ' , erro) 
