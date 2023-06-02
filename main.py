@@ -39,7 +39,7 @@ try :
         janela = tk.Tk()
 
         # Coloca o icone na janela
-        #janela.iconbitmap('v-audio.png')
+        janela.iconbitmap("C:/Users/Usuario/3D Objects/cod/APP_V-AUDIO-main/v-audio.png")
         
         # Define a janela como a janela de maior prioridade, ou seja, será exibida acima de outras janelas
         janela.attributes('-topmost', True)
