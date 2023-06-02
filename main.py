@@ -38,6 +38,9 @@ try :
         # Cria uma nova janela usando a classe Tk do módulo tkinter
         janela = tk.Tk()
 
+        # Coloca o icone na janela
+        #janela.iconbitmap('v-audio.png')
+        
         # Define a janela como a janela de maior prioridade, ou seja, será exibida acima de outras janelas
         janela.attributes('-topmost', True)
 
@@ -45,10 +48,10 @@ try :
         janela.title('V-Audio')
 
         # Configura o fundo da janela com a cor 'dodger blue'
-        janela.configure(bg='dodger blue')
+        janela.configure(bg='DeepSkyBlue3' , bd= 15 , relief= 'ridge' )
 
         # Posiciona a janela no centro da tela usando a função 'posicao' e define o tamanho como [240, 300]
-        posicao(janela, [240, 300])
+        posicao(janela, [240, 340])
 
         def msn_instrucao():
            
@@ -58,7 +61,7 @@ try :
             \nPor favor não excluir o atalho do app , em caso de fechamento o atalho e a opção para abrir o app novamente .  
             \nPara sair do menu aperte no botão ESCONDER ou no 'X', assim o app ficara em execução em segundo plano .
             \nPara fechar o app , so clicando no botão SAIR no menu .
-            \nPara desinstalar o app use o botão DESINSTALAR no menu , assim não dexará resto de arquivos no seu computador .''')
+            \nPara desinstalar o app use o botão DESINSTALAR no menu , assim não dexará resto de arquivos no seu computador .''' )
             
             
         def msn_comando():
@@ -100,13 +103,13 @@ try :
             
         
         # Todos são botões do menu 
-        bt_instru = tk.Button(janela , text='INSTRUÇÕES' , command=msn_instrucao , width=20 , height=2)
+        bt_instru = tk.Button(janela , text='INSTRUÇÕES' , command=msn_instrucao , width=20 , height=2 , bg='SpringGreen3')
         bt_instru.pack(padx=10 , pady=10 )
         
-        bt_comando = tk.Button(janela , text='COMANDOS' , command=msn_comando , width=20 , height=2)
+        bt_comando = tk.Button(janela , text='COMANDOS' , command=msn_comando , width=20 , height=2 , bg='SpringGreen3')
         bt_comando.pack(padx=10 , pady=10 )
         
-        bt_susp = tk.Button(janela , text='ESCONDER' , command=comd_escond , width=15 , height=1)
+        bt_susp = tk.Button(janela , text='ESCONDER' , command=comd_escond , width=15 , height=1 , bg='SpringGreen3')
         bt_susp.pack(padx=10 , pady=15)
         
         bt_sair = tk.Button(janela , text='SAIR' , command=comd_sair , width=7 , height=1 , bg='gold')
