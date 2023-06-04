@@ -65,7 +65,7 @@ def desinstalar1():
 
 
 def instalar():
-    pass
+    msb.showinfo('teste' , 'ok')
 
 def desinstalar():
-    pass
+    msb.showinfo('teste' , 'ok')
