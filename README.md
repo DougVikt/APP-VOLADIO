@@ -1,3 +1,5 @@
+<img src='v-audio.png' width= 300 heigth=100>
+
 # APP V-Audio :sound: ~ :loud_sound:
 
 # :memo: DESCRIÇÃO 
@@ -10,7 +12,8 @@
   OS COMANDOS : 
   + Alt + '+' -> Aumenta o volume.
   + Alt + '-' -> Diminui o volume.
-  + Alt + p   -> Para parar a execução do app.
+  + Alt + m   -> Modo mudo (liga e desliga)
+  + Alt + z   -> Para chamar o menu.
   <br>
   
 # :minidisc: COMO INSTALAR 
