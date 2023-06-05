@@ -1,10 +1,10 @@
 '''====== DESENVOLVIDO POR LORDDOUG ======='''
 from pycaw.pycaw import AudioUtilities, ISimpleAudioVolume 
 from tkinter import messagebox as msb 
-import inicializar as ic
 import keyboard as kb
 import tkinter as tk
 import pymsgbox as pbx
+import sys
 import os
 
 try :
@@ -33,19 +33,21 @@ try :
         
     
     def menu():
-        
-                
-        # Cria uma nova janela usando a classe Tk do módulo tkinter
+
+        # Obtenha o caminho absoluto do diretório do script em execução
+        caminho_ico = os.path.dirname(os.path.abspath(sys.argv[0]))
+
+        # Caminho absoluto do arquivo de ícone
+        icon_pasta = os.path.join(caminho_ico, "va.ico")
+
+        # Crie a janela
         janela = tk.Tk()
 
-        # Coloca o icone na janela
-        janela.iconbitmap("APP_V-AUDIO/v-audio.png")
-        
-        # Define a janela como a janela de maior prioridade, ou seja, será exibida acima de outras janelas
-        janela.attributes('-topmost', True)
-
-        # Define o título da janela como 'V-Audio'
+        # Atribuindo o nome na janela
         janela.title('V-Audio')
+        
+        # Defina o ícone da janela
+        janela.iconbitmap(icon_pasta)
 
         # Configura o fundo da janela com a cor 'dodger blue'
         janela.configure(bg='DeepSkyBlue3' , bd= 15 , relief= 'ridge' )
@@ -55,15 +57,16 @@ try :
 
         def msn_instrucao():
            
-            # exibe a mensagem das instrções     
+            # exibe a mensagem das instrções , para melhor visualização tive que dixar desse jeito      
             msb.showinfo('INSTRUÇÕES :' , 
                         '''Para execução correta da aplicação leia os comandos .
+            \nAntes do primeiro uso dos altalhos de aumentar e diminuir o volume , use o atalho de MUDO para igualhar os volumes dos apps , e ao repetir o mesmo atalho o volume voltara ao de antes e configurado .
+            \nSuas funções so entram em vigor quando o menu estiver escondido . 
             \nPor favor não excluir o atalho do app , em caso de fechamento o atalho e a opção para abrir o app novamente .  
             \nPara sair do menu aperte no botão ESCONDER ou no 'X', assim o app ficara em execução em segundo plano .
-            \nPara fechar o app , so clicando no botão SAIR no menu .
-            \nPara desinstalar o app use o botão DESINSTALAR no menu , assim não dexará resto de arquivos no seu computador .''' )
+            \nPara fechar o app , so clicando no botão SAIR no menu .''')
             
-            
+           
         def msn_comando():
             
             # Exibe a mensagem dos comandos usados 
@@ -92,16 +95,6 @@ try :
                 os._exit(1)
                 
         
-        def comd_desi():
-            
-            # Exibe a mensagem de decisão 
-            desins = msb.askyesno('DESINSTALAR ?' , 'Tem certeza que quer desinstalar o V-Audio ?')
-            # Se a resposta for 'ok'
-            if desins :
-                # Executa a fução de desinstalação
-                ic.desinstalar()
-            
-        
         # Todos são botões do menu 
         bt_instru = tk.Button(janela , text='INSTRUÇÕES' , command=msn_instrucao , width=20 , height=2 , bg='SpringGreen3')
         bt_instru.pack(padx=10 , pady=10 )
@@ -115,8 +108,9 @@ try :
         bt_sair = tk.Button(janela , text='SAIR' , command=comd_sair , width=7 , height=1 , bg='gold')
         bt_sair.pack(padx=10 , pady=30 )
         
-        bt_des = tk.Button(janela , text='DESINSTALAR' , command=comd_desi , width=10 , height=1 ,bg='red2')
-        bt_des.pack(padx=10 , pady=8 )
+        # Dicionando a versão 
+        versao = tk.Label(janela, text='Versão 1.0' , background='DeepSkyBlue3')
+        versao.pack(padx=10 , pady=10)
         
         # Loop do Tkinter 
         janela.mainloop()
@@ -127,19 +121,13 @@ try :
         # Cria uma nova janela
         janela = tk.Tk()
         
-        # Variável para exibir o volume na janela
-        volume_var = tk.StringVar()
-        
         # Configurações da janela
         janela.attributes("-topmost", True)  # Mantém a janela sobre outros apps
         janela.overrideredirect(True)  # Remove as bordas da janela
         janela.configure(bg="white")  # Define o fundo da janela como branco
         
-        # Define o valor da variável de exibição do volume
-        volume_var.set(f'Volume : {volume}')
-        
         # Cria um rótulo para exibir o volume na janela
-        label = tk.Label(janela, textvariable=volume_var, font=("Arial", 16), bg="white")
+        label = tk.Label(janela, text=f'Volume : {str(volume)}', font=("Arial", 16), bg="white")
         label.pack(padx=10, pady=10)
         
         # Define a posição da janela usando a função posicao
@@ -238,16 +226,18 @@ try :
         try:
             # Obtém todas as sessões de áudio ativas
             sessions = AudioUtilities.GetAllSessions()
-            
+            quant_session = 1
             for session in sessions:
                 volume = session._ctl.QueryInterface(ISimpleAudioVolume)
+                quant_session += 1
                 new_volume = volume.GetMasterVolume()
                 
-                # Insere o novo volume no início da lista volume_atual
+                # Insere o novo volume no início da lista volume_atual e volume_final
                 volume_atual.insert(0, new_volume)
+                volume_final = list(set(volume_atual))
                 
-                # Remove o último elemento da lista se houver mais de 3 elementos
-                if len(volume_atual) > 3:
+                # Remove o último elemento da lista se houver mais que os elementos de som
+                if len(volume_atual) > quant_session:
                     volume_atual.pop() 
                     
                 # Verifica se o novo volume é diferente de 0.0
@@ -257,11 +247,14 @@ try :
                     msm = True
                 else:
                     # Restaura o volume anteriormente armazenado em volume_atual[2]
-                    volume.SetMasterVolume(volume_atual[2], None)
+                    volume.SetMasterVolume(volume_final[1], None)
                     msm = False
-            
-            # Converte o volume atual para uma escala de 0 a 100
-            volume_msm = int(volume_atual[2] * 100)
+                    
+            if len(volume_final) < 2 :
+                # Converte o volume atual para uma escala de 0 a 100
+                volume_msm = int(volume_final[0] * 100)
+            else :
+                volume_msm = int(volume_final[1] * 100)
             
             if msm:
                 # Exibe uma mensagem indicando que o áudio está mudo
@@ -273,7 +266,7 @@ try :
         except UnboundLocalError:
             pass
 
-        
+
                 
     def atalhos(event):
         # Variável global
@@ -301,14 +294,12 @@ try :
 
 
     if __name__ == "__main__": 
-        # Instala o programa
-        ic.instalar()
-        
-        # Exibe o menu
-        menu()
         
         # Monitora a pressão de teclas para atalhos
         kb.on_press(atalhos)
+        
+        # Exibe o menu
+        menu()
         
         # Aguarda o término da execução
         kb.wait()
