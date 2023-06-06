@@ -60,6 +60,7 @@ try :
             # exibe a mensagem das instrções , para melhor visualização tive que dixar desse jeito      
             msb.showinfo('INSTRUÇÕES :' , 
                         '''Para execução correta da aplicação leia os comandos .
+            \nCaso após a instalação as funções não estiverem funcionando , abra o menu e o feche usando o 'X' , aparti disso funcionará normalnemte .
             \nAntes do primeiro uso dos altalhos de aumentar e diminuir o volume , use o atalho de MUDO para igualhar os volumes dos apps , e ao repetir o mesmo atalho o volume voltara ao de antes e configurado .
             \nSuas funções so entram em vigor quando o menu estiver escondido . 
             \nPor favor não excluir o atalho do app , em caso de fechamento o atalho e a opção para abrir o app novamente .  

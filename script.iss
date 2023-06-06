@@ -2,10 +2,11 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "V-Audio"
+#define MyAppIcon "C:\Users\USUARIO\Documents\PROGRAMA플O\CODIGOS2\APP_V-AUDIO\build\V-Audio_V1.0\v-audio.ico"
 #define MyAppVersion "1.0"
 #define MyAppPublisher "LordDoug Programmer"
 #define MyAppURL "https://github.com/DougVikt/APP_V-AUDIO"
-#define MyAppExeName "main.exe"
+#define MyAppExeName "v-audio.exe"
 #define MyAppAssocName MyAppName + " File"
 #define MyAppAssocExt ".myp"
 #define MyAppAssocKey StringChange(MyAppAssocName, " ", "") + MyAppAssocExt
@@ -13,7 +14,7 @@
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{626737AE-F048-4EA2-A082-2E869CE5B565}
+AppId={{626737AE-F048-4EA2-A082-2E869CE5B565}}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
@@ -28,7 +29,7 @@ LicenseFile=C:\Users\USUARIO\Documents\PROGRAMA플O\CODIGOS2\APP_V-AUDIO\build\V-
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 OutputDir=C:\Users\USUARIO\Downloads
-OutputBaseFilename=mysetup
+OutputBaseFilename=V-Audio
 SetupIconFile=C:\Users\USUARIO\Documents\PROGRAMA플O\CODIGOS2\APP_V-AUDIO\v-audio.ico
 Compression=lzma
 SolidCompression=yes
@@ -43,11 +44,12 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [Files]
 Source: "C:\Users\USUARIO\Documents\PROGRAMA플O\CODIGOS2\APP_V-AUDIO\build\V-Audio_V1.0\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\USUARIO\Documents\PROGRAMA플O\CODIGOS2\APP_V-AUDIO\build\V-Audio_V1.0\frozen_application_license.txt"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\USUARIO\Documents\PROGRAMA플O\CODIGOS2\APP_V-AUDIO\build\V-Audio_V1.0\main.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\USUARIO\Documents\PROGRAMA플O\CODIGOS2\APP_V-AUDIO\build\V-Audio_V1.0\v-audio.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\USUARIO\Documents\PROGRAMA플O\CODIGOS2\APP_V-AUDIO\build\V-Audio_V1.0\python3.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\USUARIO\Documents\PROGRAMA플O\CODIGOS2\APP_V-AUDIO\build\V-Audio_V1.0\python310.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\USUARIO\Documents\PROGRAMA플O\CODIGOS2\APP_V-AUDIO\build\V-Audio_V1.0\va.ico"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\USUARIO\Documents\PROGRAMA플O\CODIGOS2\APP_V-AUDIO\build\V-Audio_V1.0\lib\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\USUARIO\Documents\PROGRAMA플O\CODIGOS2\APP_V-AUDIO\build\V-Audio_V1.0\v-audio.ico"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\USUARIO\Documents\PROGRAMA플O\CODIGOS2\APP_V-AUDIO\build\V-Audio_V1.0\a\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Registry]
@@ -58,8 +60,9 @@ Root: HKA; Subkey: "Software\Classes\{#MyAppAssocKey}\shell\open\command"; Value
 Root: HKA; Subkey: "Software\Classes\Applications\{#MyAppExeName}\SupportedTypes"; ValueType: string; ValueName: ".myp"; ValueData: ""
 
 [Icons]
-Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
-Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\{#MyAppIcon}"
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\{#MyAppIcon}" ;Tasks: desktopicon
+Name: "{userstartup}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}" ; IconFilename: "{app}\{#MyAppIcon}"
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
