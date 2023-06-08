@@ -8,17 +8,27 @@
   <br><br>
   
 # :gear: COMO FUNCIONA 
-  Ao instalar aparece algumas mensagens , uma de que o a app esta em execução e outra com os comandos .
-  OS COMANDOS : 
-  + Alt + '+' -> Aumenta o volume.
-  + Alt + '-' -> Diminui o volume.
-  + Alt + m   -> Modo mudo (liga e desliga)
-  + Alt + z   -> Para chamar o menu.
+  Após a instalação abrirá o menu , onde tem os botões : Instrução , Comando , Esconder e Sair . Abaixo uma breve descrição de cada um .
+  <br><br>
+  :wrench:**INSTRUÇÃO :**
+  + Mensagem com todas as informações necessarias para o uso efetivo da aplicação .
   <br>
   
+  :wrench:**COMANDOS :** 
+  + Mostrará a mensagem com todos os atalhos aceitos .
+  <br>
+  
+  :wrench:**ESCONDER :**
+  + Esconde o menu visualmente .
+<br>
+
+:wrench:**SAIR :**
++ Sai da aplicação , a fecha literalmente .
+<br>
+  
 # :minidisc: COMO INSTALAR 
-  Estou com alguns problemas para transformar em executavel , então caso queira fazer uma contribuição , pode transforma-lo e me enviar . Agradeço colocando sua contribuição no projeto .
+  Instalação simples e intuitiva , para baixar clique no icone [:inbox_tray:](https://github.com/DougVikt/APP_V-AUDIO/raw/main/V-Audio.exe).
 <br><br>
 
 # :handshake: CONTRIBUIÇÃO 
-Como ja tinha relatado acima , alem dessa contribuição , você pode participar no desenvolvimento e aprimoramento do app , com novas ideias para adicionar .
+Agradeço a todos que baixarem e usarem a aplicação , tambem para aqueles que mandaram seus feedback . Caso queira participar do projeto com novas ideias estarei de mente a perta para todas .
