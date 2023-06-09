@@ -1,9 +1,11 @@
 '''====== DESENVOLVIDO POR LORDDOUG ======='''
 from pycaw.pycaw import AudioUtilities, ISimpleAudioVolume 
 from tkinter import messagebox as msb 
+from pynput import keyboard as kbp
 import keyboard as kb
 import tkinter as tk
 import pymsgbox as pbx
+import time
 import sys
 import os
 
@@ -59,11 +61,10 @@ try :
             # exibe a mensagem das instrções , para melhor visualização tive que dixar desse jeito      
             msb.showinfo('INSTRUÇÕES :' , 
                         '''Para execução correta da aplicação leia os comandos .
-            \nCaso após a instalação as funções não estiverem funcionando , abra o menu e o feche usando o 'X' , aparti disso funcionará normalnemte .
             \nAntes do primeiro uso dos altalhos de aumentar e diminuir o volume , use o atalho de MUDO para igualhar os volumes dos apps , e ao repetir o mesmo atalho o volume voltara ao de antes e configurado .
             \nSuas funções so entram em vigor quando o menu estiver escondido . 
             \nPor favor não excluir o atalho do app , em caso de fechamento o atalho e a opção para abrir o app novamente .  
-            \nPara sair do menu aperte no botão ESCONDER ou no 'X', assim o app ficara em execução em segundo plano .
+            \nPara sair do menu aperte no 'X', assim o app ficara em execução em segundo plano .
             \nPara fechar o app , so clicando no botão SAIR no menu .''')
             
            
@@ -75,11 +76,7 @@ try :
                                         \nAlt + m  , para o Mudo
                                         \nAlt + z , para acessar o menu''')
             
-        def comd_escond():
-            
-            # Destroy a janela do Tkinter
-            janela.destroy()
-            
+    
         
         def comd_sair():
             
@@ -101,9 +98,6 @@ try :
         
         bt_comando = tk.Button(janela , text='COMANDOS' , command=msn_comando , width=20 , height=2 , bg='SpringGreen3')
         bt_comando.pack(padx=10 , pady=10 )
-        
-        bt_susp = tk.Button(janela , text='ESCONDER' , command=comd_escond , width=15 , height=1 , bg='SpringGreen3')
-        bt_susp.pack(padx=10 , pady=15)
         
         bt_sair = tk.Button(janela , text='SAIR' , command=comd_sair , width=7 , height=1 , bg='gold')
         bt_sair.pack(padx=10 , pady=30 )
@@ -141,7 +135,7 @@ try :
         
         
 
-    def aumenta_volume():
+    def aumenta_volume(valor = float):
         # Variáveis globais
         global mensage_a, mensage_d
         
@@ -160,7 +154,7 @@ try :
                 # Verifica se o volume atual é menor que 1.0
                 if current_volume < 1.0:
                     # Incrementa o volume atual em 0.01, limitado a 1.0
-                    new_volume = min(current_volume + 0.01, 1.0)
+                    new_volume = min(current_volume + valor, 1.0)
                     volume.SetMasterVolume(new_volume, None)
                     mensage_d = True
                 else:
@@ -266,20 +260,21 @@ try :
         except UnboundLocalError:
             pass
 
-
-                
+    
     def atalhos(event):
-        
-        # Verifica se a combinação de teclas Alt + - foi pressionada
+       
+            
+    
+        # Verifica se a combinação de teclas Alt + - foi pressionada     
         if kb.is_pressed('alt') and kb.is_pressed('-'):    
             # Chama a função para diminuir o volume
-    
             diminui_volume(0.01)
-        
+      
+                
         # Verifica se a combinação de teclas Alt + = ou Alt + + foi pressionada
         elif kb.is_pressed('alt') and (kb.is_pressed('=') or kb.is_pressed('+')):
             # Chama a função para aumentar o volume
-            aumenta_volume()
+            aumenta_volume(0.01)
         
         # Verifica se a combinação de teclas Alt + m foi pressionada
         if kb.is_pressed('alt') and kb.is_pressed('m'):
@@ -302,6 +297,7 @@ try :
         
         # Aguarda o término da execução
         kb.wait()
+        
 
 except IOError as erro:
     # Exibe uma mensagem de erro caso ocorra um erro de E/S (Input/Output)
