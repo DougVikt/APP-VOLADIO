@@ -10,7 +10,6 @@ import os
 try :
     # variaveis globais
     mensage_d = mensage_a = True
-    loop = True
     volume_atual = []
     
     # função para simplificar o uso do geometry 
@@ -47,7 +46,7 @@ try :
         janela.title('V-Audio')
         
         # Defina o ícone da janela
-        janela.iconbitmap(icon_pasta)
+        #janela.iconbitmap(icon_pasta)
 
         # Configura o fundo da janela com a cor 'dodger blue'
         janela.configure(bg='DeepSkyBlue3' , bd= 15 , relief= 'ridge' )
@@ -180,7 +179,7 @@ try :
             pass
 
             
-    def diminui_volume():
+    def diminui_volume(valor = float):
         # Variáveis globais
         global mensage_d, mensage_a
         
@@ -199,7 +198,7 @@ try :
                 # Verifica se o volume atual é maior que 0.0
                 if current_volume > 0.0:
                     # Decrementa o volume atual em 0.01, limitado a 0.0
-                    new_volume = max(current_volume - 0.01, 0.0)
+                    new_volume = max(current_volume - valor, 0.0)
                     volume.SetMasterVolume(new_volume, None)
                     mensage_a = True
                 else:
@@ -270,13 +269,12 @@ try :
 
                 
     def atalhos(event):
-        # Variável global
-        global loop
         
         # Verifica se a combinação de teclas Alt + - foi pressionada
-        if kb.is_pressed('alt') and kb.is_pressed('-'):
+        if kb.is_pressed('alt') and kb.is_pressed('-'):    
             # Chama a função para diminuir o volume
-            diminui_volume()
+    
+            diminui_volume(0.01)
         
         # Verifica se a combinação de teclas Alt + = ou Alt + + foi pressionada
         elif kb.is_pressed('alt') and (kb.is_pressed('=') or kb.is_pressed('+')):
@@ -284,7 +282,7 @@ try :
             aumenta_volume()
         
         # Verifica se a combinação de teclas Alt + m foi pressionada
-        elif kb.is_pressed('alt') and kb.is_pressed('m'):
+        if kb.is_pressed('alt') and kb.is_pressed('m'):
             # Chama a função para alternar entre mudo e som
             mudo_on_off()
         

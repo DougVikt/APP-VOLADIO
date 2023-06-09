@@ -1,4 +1,4 @@
-<img src='v-audio.png' width= 300>
+<img src='img/v-audio.png' width= 300>
 
 # APP V-Audio :sound: ~ :loud_sound:
 
