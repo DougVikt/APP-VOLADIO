@@ -1,7 +1,6 @@
 '''====== DESENVOLVIDO POR LORDDOUG ======='''
 from pycaw.pycaw import AudioUtilities, ISimpleAudioVolume 
 from tkinter import messagebox as msb 
-from pynput import keyboard as kbp
 import keyboard as kb
 import tkinter as tk
 import pymsgbox as pbx
