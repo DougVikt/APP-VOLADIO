@@ -261,19 +261,21 @@ try :
 
     
     def atalhos(event):
-       
-            
-    
+        
+        duracao = 0
+        tempo = time.time()
         # Verifica se a combinação de teclas Alt + - foi pressionada     
         if kb.is_pressed('alt') and kb.is_pressed('-'):    
             # Chama a função para diminuir o volume
             diminui_volume(0.01)
-      
-                
+            duracao = time.time() - tempo
+            
         # Verifica se a combinação de teclas Alt + = ou Alt + + foi pressionada
         elif kb.is_pressed('alt') and (kb.is_pressed('=') or kb.is_pressed('+')):
             # Chama a função para aumentar o volume
             aumenta_volume(0.01)
+            
+        print(tempo , '====' , duracao) 
         
         # Verifica se a combinação de teclas Alt + m foi pressionada
         if kb.is_pressed('alt') and kb.is_pressed('m'):
