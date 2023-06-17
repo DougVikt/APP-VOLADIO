@@ -4,7 +4,7 @@ from tkinter import messagebox as msb
 import keyboard as kb
 import tkinter as tk
 import pymsgbox as pbx
-import time
+import pygame
 import sys
 import os
 
@@ -13,23 +13,38 @@ try :
     mensage_d = mensage_a = True
     volume_atual = []
     
-    # função para simplificar o uso do geometry 
-    def posicao(tela, tamanho=[20, 20], alterar=[0, 0]):
-        # Obtém a altura da tela
-        tela_vert = tela.winfo_screenheight()
+    # função para simplificar o uso do geometry e position
+    def posicao( tipo= str ,tela = None, tamanho=[20, 20], alterar=[0, 0]):
+        if tipo == 'tk':
+            # Obtém a altura da tela
+            tela_vert = tela.winfo_screenheight()
+            
+            # Obtém a largura da tela
+            tela_hori = tela.winfo_screenwidth()
+            
+            # Calcula a posição x da janela para centralizá-la na tela
+            posi_x = ((tela_hori - tamanho[0]) // 2) + alterar[0]
+            
+            # Calcula a posição y da janela para centralizá-la na tela
+            posi_y = ((tela_vert - tamanho[1]) // 2) + alterar[1]
+            
+            # Define a geometria da janela com o tamanho e posição calculados
+            return tela.geometry(f'{tamanho[0]}x{tamanho[1]}+{posi_x}+{posi_y}')
         
-        # Obtém a largura da tela
-        tela_hori = tela.winfo_screenwidth()
-        
-        # Calcula a posição x da janela para centralizá-la na tela
-        posi_x = ((tela_hori - tamanho[0]) // 2) + alterar[0]
-        
-        # Calcula a posição y da janela para centralizá-la na tela
-        posi_y = ((tela_vert - tamanho[1]) // 2) + alterar[1]
-        
-        # Define a geometria da janela com o tamanho e posição calculados
-        return tela.geometry(f'{tamanho[0]}x{tamanho[1]}+{posi_x}+{posi_y}')
- 
+        elif tipo == 'pyg' :
+            tela_tam = tela.display.Info()
+            
+            tela_hori = tela_tam.current_heigth
+            tela_vert = tela_tam.current_width
+            
+             # Calcula a posição x da janela para centralizá-la na tela
+            posi_x = ((tela_hori - tamanho[0]) // 2) + alterar[0]
+            
+            # Calcula a posição y da janela para centralizá-la na tela
+            posi_y = ((tela_vert - tamanho[1]) // 2) + alterar[1]
+            
+            return tela.display.set_window_position(posi_x, posi_y)
+
         
     
     def menu():
@@ -53,7 +68,7 @@ try :
         janela.configure(bg='DeepSkyBlue3' , bd= 15 , relief= 'ridge' )
 
         # Posiciona a janela no centro da tela usando a função 'posicao' e define o tamanho como [240, 300]
-        posicao(janela, [240, 340])
+        posicao('tk' ,janela, [240, 340])
 
         def msn_instrucao():
            
@@ -111,28 +126,37 @@ try :
         
         
     def mensage_volume(volume):
-        # Cria uma nova janela
-        janela = tk.Tk()
-        
+   
+
+        # Inicialização do Pygame
+        pygame.init()
+      
         # Configurações da janela
-        janela.attributes("-topmost", True)  # Mantém a janela sobre outros apps
-        janela.overrideredirect(True)  # Remove as bordas da janela
-        janela.configure(bg="white")  # Define o fundo da janela como branco
+        largura = 100
+        altura = 20
+        janela = pygame.display.set_mode((largura, altura), pygame.NOFRAME | pygame.RESIZABLE | pygame.SWSURFACE)
         
-        # Cria um rótulo para exibir o volume na janela
-        label = tk.Label(janela, text=f'Volume : {str(volume)}', font=("Arial", 16), bg="white")
-        label.pack(padx=10, pady=10)
+        posicao('pyg' , pygame , [100 ,20])
         
-        # Define a posição da janela usando a função posicao
-        posicao(janela, [185, 55], [-15, 415])
-        
-        # Define um atraso de 200 milissegundos antes de destruir a janela
-        janela.after(200, lambda: janela.destroy())
-        
-        # Inicia o loop principal da janela
-        janela.mainloop()
-        
-        
+        n=0
+        # Loop principal
+        while True:
+            n += 1 
+            for event in pygame.event.get():
+                if n > 50:
+                    pygame.quit()
+                    exit()
+            
+            # Limpar a tela
+            janela.fill((255, 255, 255))  # Cor de fundo branca
+            
+            # Renderizar conteúdo da janela
+            
+            # Atualizar a tela
+            pygame.display.update()
+
+                
+                
 
     def aumenta_volume(valor = float):
         # Variáveis globais
@@ -262,21 +286,17 @@ try :
     
     def atalhos(event):
         
-        duracao = 0
-        tempo = time.time()
+    
         # Verifica se a combinação de teclas Alt + - foi pressionada     
         if kb.is_pressed('alt') and kb.is_pressed('-'):    
             # Chama a função para diminuir o volume
             diminui_volume(0.01)
-            duracao = time.time() - tempo
-            
+                        
         # Verifica se a combinação de teclas Alt + = ou Alt + + foi pressionada
         elif kb.is_pressed('alt') and (kb.is_pressed('=') or kb.is_pressed('+')):
             # Chama a função para aumentar o volume
             aumenta_volume(0.01)
             
-        print(tempo , '====' , duracao) 
-        
         # Verifica se a combinação de teclas Alt + m foi pressionada
         if kb.is_pressed('alt') and kb.is_pressed('m'):
             # Chama a função para alternar entre mudo e som
@@ -286,6 +306,8 @@ try :
         if kb.is_pressed('alt') and kb.is_pressed('z'):
             # Chama a função para exibir o menu
             menu()
+        
+      
 
 
     if __name__ == "__main__": 
