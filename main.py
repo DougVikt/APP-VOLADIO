@@ -1,15 +1,16 @@
 '''====== DESENVOLVIDO POR LORDDOUG ======='''
 from pycaw.pycaw import AudioUtilities, ISimpleAudioVolume 
 from tkinter import messagebox as msb 
+from PIL import Image , ImageTk
 import keyboard as kb
 import tkinter as tk
 import pymsgbox as pbx
-import time
 import sys
 import os
 
 try :
     # variaveis globais
+    inicio = True
     mensage_d = mensage_a = True
     volume_atual = []
     
@@ -33,7 +34,66 @@ try :
         
     
     def menu():
+        global inicio
 
+        def menssage_instrucao():
+           
+            # exibe a mensagem das instrções , para melhor visualização tive que dixar desse jeito      
+            msb.showinfo('INSTRUÇÕES :' , 
+                        '''Para execução correta da aplicação leia os comandos .
+            \nAntes do primeiro uso dos altalhos de aumentar e diminuir o volume , use o atalho de MUDO para igualhar os volumes dos apps , e ao repetir o mesmo atalho o volume voltara ao de antes e configurado .
+            \nSuas funções so entram em vigor quando o menu estiver fechado . 
+            \nAs teclas de atalho para aumentar/diminuir em 5 e o '0 ou )' do teclado principal e o '*' do teclado numerico . 
+            \nPor favor não excluir o atalho do app , em caso de fechamento o atalho e a opção para abrir o app novamente .  
+            \nPara sair do menu aperte no 'X', assim o app ficara em execução em segundo plano .
+            \nPara fechar o app , clique no botão SAIR no menu .''')
+            
+           
+        def menssage_comando():
+            
+            # Exibe a mensagem dos comandos usados 
+            msb.showwarning('COMANDOS :' , '''Alt + ' + ' , para Almentar em 1
+                                        \nAlt + ' - ' , para Diminuir em 1
+                                        \nAlt + ' + ' + ' ) ' ou ' * ' , para Aumentar em 5 
+                                        \nAlt + ' - ' + ' ) ' ou ' * ' , para Diminuir em 5
+                                        \nAlt + m  , para o Mudo
+                                        \nAlt + z , para acessar o menu''')
+            
+    
+        def fechar_app():
+            
+            # Exibe uma mensagem que tem 'yes' ou 'no' 
+            resposta = msb.askyesno('FECHAR ?' , 'Quer fechar a aplicação ?')
+            
+            # Se a resposta for 'yes'
+            if resposta :
+                
+                # Manda uma mensagem de despedida
+                pbx.alert('Ate a proxima !', 'AVISO')
+                # Fecha o programa
+                os._exit(1)
+                
+        
+        def image_fundo():
+            # Carregar a imagem
+            imagem = Image.open("caminho/para/imagem.jpg")
+
+            # Redimensionar a imagem para se ajustar à janela
+            largura = janela.winfo_width()
+            altura = janela.winfo_height()
+            imagem_ajustada = imagem.resize((largura, altura), Image.ANTIALIAS)
+
+            # Converter a imagem para o formato suportado pelo tkinter
+            imagem_tk = ImageTk.PhotoImage(imagem_ajustada)
+
+            # Criar um widget de tela de fundo
+            canvas = tk.Canvas(janela, width=largura, height=altura)
+            canvas.pack()
+
+            # Exibir a imagem no widget de tela de fundo
+            canvas.create_image(0, 0, anchor=tk.NW, image=imagem_tk)
+
+        
         # Obtenha o caminho absoluto do diretório do script em execução
         caminho_ico = os.path.dirname(os.path.abspath(sys.argv[0]))
 
@@ -54,60 +114,28 @@ try :
 
         # Posiciona a janela no centro da tela usando a função 'posicao' e define o tamanho como [240, 300]
         posicao(janela, [240, 340])
-
-        def msn_instrucao():
-           
-            # exibe a mensagem das instrções , para melhor visualização tive que dixar desse jeito      
-            msb.showinfo('INSTRUÇÕES :' , 
-                        '''Para execução correta da aplicação leia os comandos .
-            \nAntes do primeiro uso dos altalhos de aumentar e diminuir o volume , use o atalho de MUDO para igualhar os volumes dos apps , e ao repetir o mesmo atalho o volume voltara ao de antes e configurado .
-            \nSuas funções so entram em vigor quando o menu estiver escondido . 
-            \nPor favor não excluir o atalho do app , em caso de fechamento o atalho e a opção para abrir o app novamente .  
-            \nPara sair do menu aperte no 'X', assim o app ficara em execução em segundo plano .
-            \nPara fechar o app , so clicando no botão SAIR no menu .''')
-            
-           
-        def msn_comando():
-            
-            # Exibe a mensagem dos comandos usados 
-            msb.showwarning('COMANDOS :' , '''Alt + ' + ' , para Almentar
-                                        \nAlt + ' - ' , para Diminuir
-                                        \nAlt + m  , para o Mudo
-                                        \nAlt + z , para acessar o menu''')
-            
-    
-        
-        def comd_sair():
-            
-            # Exibe uma mensagem que tem 'yes' ou 'no' 
-            resposta = msb.askyesno('FECHAR ?' , 'Quer fechar a aplicação ?')
-            
-            # Se a resposta for 'yes'
-            if resposta :
-                
-                # Manda uma mensagem de despedida
-                pbx.alert('Ate a proxima !', 'AVISO')
-                # Fecha o programa
-                os._exit(1)
-                
         
         # Todos são botões do menu 
-        bt_instru = tk.Button(janela , text='INSTRUÇÕES' , command=msn_instrucao , width=20 , height=2 , bg='SpringGreen3')
-        bt_instru.pack(padx=10 , pady=10 )
+        botao_instru = tk.Button(janela , text='INSTRUÇÕES' , command=menssage_instrucao , width=20 , height=2 , bg='SpringGreen3')
+        botao_instru.pack(padx=10 , pady=10 )
         
-        bt_comando = tk.Button(janela , text='COMANDOS' , command=msn_comando , width=20 , height=2 , bg='SpringGreen3')
-        bt_comando.pack(padx=10 , pady=10 )
+        botao_comando = tk.Button(janela , text='COMANDOS' , command=menssage_comando , width=20 , height=2 , bg='SpringGreen3')
+        botao_comando.pack(padx=10 , pady=10 )
         
-        bt_sair = tk.Button(janela , text='SAIR' , command=comd_sair , width=7 , height=1 , bg='gold')
-        bt_sair.pack(padx=10 , pady=30 )
+        botao_sair = tk.Button(janela , text='SAIR' , command=fechar_app , width=7 , height=1 , bg='gold')
+        botao_sair.pack(padx=10 , pady=30 )
         
         # Dicionando a versão 
-        versao = tk.Label(janela, text='Versão 1.0' , background='DeepSkyBlue3')
-        versao.pack(padx=10 , pady=10)
+        versao = tk.Label(janela, text='Versão 1.5' , background='DeepSkyBlue3')
+        versao.pack(padx=10 , side='bottom' ,pady=10)
+        
+        if janela.winfo_exists() :
+            inicio = False
         
         # Loop do Tkinter 
         janela.mainloop()
         
+       
         
         
     def mensage_volume(volume):
@@ -259,22 +287,95 @@ try :
         except UnboundLocalError:
             pass
 
+    def menssage_instrucao():
+        
+        # exibe a mensagem das instrções , para melhor visualização tive que dixar desse jeito      
+        msb.showinfo('INSTRUÇÕES :' , 
+                    '''Para execução correta da aplicação leia os comandos .
+        \nAntes do primeiro uso dos altalhos de aumentar e diminuir o volume , use o atalho de MUDO para igualhar os volumes dos apps , e ao repetir o mesmo atalho o volume voltara ao de antes e configurado .
+        \nSuas funções so entram em vigor quando o menu estiver fechado . 
+        \nAs teclas de atalho para aumentar/diminuir em 5 e o '0 ou )' do teclado principal e o '*' do teclado numerico . 
+        \nPor favor não excluir o atalho do app , em caso de fechamento o atalho e a opção para abrir o app novamente .  
+        \nPara sair do menu aperte no 'X', assim o app ficara em execução em segundo plano .
+        \nPara fechar o app , clique no botão SAIR no menu .''')
+        
+        
+    def menssage_comando():
+        
+        # Exibe a mensagem dos comandos usados 
+        msb.showwarning('COMANDOS :' , '''Alt + ' + ' , para Almentar em 1
+                                    \nAlt + ' - ' , para Diminuir em 1
+                                    \nAlt + ' + ' + ' ) ' ou ' * ' , para Aumentar em 5 
+                                    \nAlt + ' - ' + ' ) ' ou ' * ' , para Diminuir em 5
+                                    \nAlt + m  , para o Mudo
+                                    \nAlt + z , para acessar o menu''')
+        
+
+    def fechar_app():
+        
+        # Exibe uma mensagem que tem 'yes' ou 'no' 
+        resposta = msb.askyesno('FECHAR ?' , 'Quer fechar a aplicação ?')
+        
+        # Se a resposta for 'yes'
+        if resposta :
+            
+            # Manda uma mensagem de despedida
+            pbx.alert('Ate a proxima !', 'AVISO')
+            # Fecha o programa
+            os._exit(1)
+            
     
+    def image_caminho(nome_imagem:str):
+        # Obtenha o caminho absoluto do diretório do script em execução
+        caminho = os.path.dirname(os.path.abspath(sys.argv[0]))
+
+        # Caminho absoluto do arquivo de ícone
+        imagem_pasta = os.path.join(caminho, nome_imagem) 
+    
+        return imagem_pasta
+        
+    
+    def image_fundo(janela:object):
+        # Carregar a imagem
+        imagem = Image.open(image_caminho(''))
+
+        # Redimensionar a imagem para se ajustar à janela
+        largura = janela.winfo_width()
+        altura = janela.winfo_height()
+        imagem_ajustada = imagem.resize((largura, altura), Image.ANTIALIAS)
+
+        # Converter a imagem para o formato suportado pelo tkinter
+        imagem_tk = ImageTk.PhotoImage(imagem_ajustada)
+
+        # Criar um widget de tela de fundo
+        canvas = tk.Canvas(janela, width=largura, height=altura)
+        canvas.pack()
+
+        # Exibir a imagem no widget de tela de fundo
+        canvas.create_image(0, 0, anchor=tk.NW, image=imagem_tk)
+
+
     def atalhos(event):
         
       
         # Verifica se a combinação de teclas Alt + - foi pressionada     
         if kb.is_pressed('alt') and kb.is_pressed('-'):    
             # Chama a função para diminuir o volume
-            diminui_volume(0.01)
-       
-            
+            if kb.is_pressed('0') or kb.is_pressed('*'):
+                # caso pressionado diminui de 5 em 5 
+                diminui_volume(0.05)
+            else:
+                diminui_volume(0.01)
+                
         # Verifica se a combinação de teclas Alt + = ou Alt + + foi pressionada
         elif kb.is_pressed('alt') and (kb.is_pressed('=') or kb.is_pressed('+')):
             # Chama a função para aumentar o volume
-            aumenta_volume(0.01)
-            
-        
+            if kb.is_pressed('0') or kb.is_pressed('*'):
+                # caso pressionado aumenta de 5 em 5 
+                aumenta_volume(0.05)
+            else:
+               aumenta_volume(0.01)
+       
         # Verifica se a combinação de teclas Alt + m foi pressionada
         if kb.is_pressed('alt') and kb.is_pressed('m'):
             # Chama a função para alternar entre mudo e som
@@ -286,17 +387,60 @@ try :
             menu()
 
 
+
+
     if __name__ == "__main__": 
+        
+        if inicio :# inicia o menu
+            
+           
+
+            # Crie a janela
+            janela = tk.Tk()
+
+            # Atribuindo o nome na janela
+            janela.title('V-Audio')
+            
+            # Defina o ícone da janela
+            #janela.iconbitmap(image_caminho('va.ico'))
+            
+            #Define a imagem de fundo
+            #image_fundo(janela)
+            
+            # Configura o fundo da janela com a cor 'dodger blue'
+            janela.configure(bg='DeepSkyBlue3' , bd= 15 , relief= 'ridge' )
+
+            # Posiciona a janela no centro da tela usando a função 'posicao' e define o tamanho como [240, 300]
+            posicao(janela, [240, 340])
+            
+            # Todos são botões do menu 
+            botao_instru = tk.Button(janela , text='INSTRUÇÕES' , command=menssage_instrucao , width=20 , height=2 , bg='SpringGreen3')
+            botao_instru.pack(padx=10 , pady=10 )
+            
+            botao_comando = tk.Button(janela , text='COMANDOS' , command=menssage_comando , width=20 , height=2 , bg='SpringGreen3')
+            botao_comando.pack(padx=10 , pady=10 )
+            
+            botao_sair = tk.Button(janela , text='SAIR' , command=fechar_app , width=7 , height=1 , bg='gold')
+            botao_sair.pack(padx=10 , pady=30 )
+            
+            # Dicionando a versão 
+            versao = tk.Label(janela, text='Versão 1.5' , background='DeepSkyBlue3')
+            versao.pack(padx=10 , side='bottom' ,pady=10)
+            
+            if janela.winfo_exists() :
+                inicio = False
+            
+            # Loop do Tkinter 
+            janela.mainloop()
+        
         
         # Monitora a pressão de teclas para atalhos
         kb.on_press(atalhos)
         
-        # Exibe o menu
-        menu()
-        
         # Aguarda o término da execução
         kb.wait()
         
+      
 
 except IOError as erro:
     # Exibe uma mensagem de erro caso ocorra um erro de E/S (Input/Output)
