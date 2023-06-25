@@ -8,7 +8,7 @@ import keyboard as kb
 
 try :
       
-    def atalhos(event , window):
+    def atalhos(event):
         
         # Verifica se a combinação de teclas Alt + - foi pressionada     
         if kb.is_pressed('alt') and kb.is_pressed('-'):    
@@ -32,28 +32,32 @@ try :
         if kb.is_pressed('alt') and kb.is_pressed('m'):
             # Chama a função para alternar entre mudo e som
             tela_volume.mudo_on_off()
-        
+            
+            
         # Verifica se a combinação de teclas Alt + z foi pressionada
         if kb.is_pressed('alt') and kb.is_pressed('z'):
             # Chama a função para exibir o menu
-            window.menu()
-            
+            iniciando()
+        
+       
             
     if __name__ == "__main__": 
   
-                
-        window = jp()
-        tela_volume = vc()
+        def iniciando():
+            window = jp()
+            if jp.exist :# inicia o menu
+                window.menu() 
         
-        if jp.exist :# inicia o menu
-            window.menu()
+            window.janela.mainloop()
+            
+        tela_volume = vc()
+        iniciando()
+        
     
         # Monitora a pressão de teclas para atalhos
-        kb.on_press(lambda event: atalhos(event, window))
+        kb.on_press(atalhos)
         
         # Aguarda o término da execução
-        
-        window.janela.mainloop()
         kb.wait()
 
 except IOError as erro:
