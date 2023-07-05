@@ -27,7 +27,7 @@
 <br>
   
 # :minidisc: COMO INSTALAR 
-  Instalação simples e intuitiva , para baixar clique no icone [:inbox_tray:](https://github.com/DougVikt/APP_V-AUDIO/raw/main/V-Audio.exe).
+  Instalação simples e intuitiva , para baixar clique no icone [:inbox_tray:](https://github.com/DougVikt/APP_V-AUDIO/raw/main/executaveis/V-Audio_V-1,0.exe).
 <br><br>
 
 # :handshake: CONTRIBUIÇÃO 
