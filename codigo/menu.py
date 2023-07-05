@@ -18,16 +18,16 @@ class JanelaPrincipal:
     def menu(self):
         
         # Defina o ícone da janela
-        #self.janela.iconbitmap(self.__image_caminho('va.ico'))
+        self.janela.iconbitmap(self.__image_caminho('img/icone.ico'))
         
         #Define a imagem de fundo
-        #self.__image_fundo(self.janela)
+        self.__image_fundo()
         
         # Configura o fundo da janela com a cor 'dodger blue'
-        self.janela.configure(bg='DeepSkyBlue3' , bd= 15 , relief= 'ridge' )
+        self.janela.configure( bd= 13 , relief= 'ridge' )
 
         # Posiciona a janela no centro da tela usando a função 'posicao' e define o tamanho como [240, 300]
-        self.__posicao([240, 340])
+        self.__posicao([240, 360])
         
         self.__botoes()
         
@@ -57,17 +57,17 @@ class JanelaPrincipal:
     def __botoes(self):
         tela = self.janela
         # Todos são botões do menu 
-        botao_instru = tk.Button(tela , text='INSTRUÇÕES' , command=self.__menssage_instrucao , width=20 , height=2 , bg='SpringGreen3')
+        botao_instru = tk.Button(tela , text='INSTRUÇÕES' ,foreground='limegreen', command=self.__menssage_instrucao , width=20 , height=2 , bg='gray26')
         botao_instru.pack(padx=10 , pady=10 )
         
-        botao_comando = tk.Button(tela , text='COMANDOS' , command=self.__menssage_comando , width=20 , height=2 , bg='SpringGreen3')
+        botao_comando = tk.Button(tela , text='COMANDOS' ,foreground='limegreen', command=self.__menssage_comando , width=20 , height=2 , bg='gray26')
         botao_comando.pack(padx=10 , pady=10 )
         
-        botao_sair = tk.Button(tela , text='SAIR' , command=self.__fechar_app , width=7 , height=1 , bg='gold')
-        botao_sair.pack(padx=10 , pady=30 )
+        botao_sair = tk.Button(tela , text='SAIR' , foreground='yellow2', command=self.__fechar_app , width=7 , height=1 , bg='orangered4')
+        botao_sair.pack(padx=10 , pady=75 )
         
         # Dicionando a versão 
-        versao = tk.Label(tela, text='Versão 1.5' , background='DeepSkyBlue3')
+        versao = tk.Label(tela, text='Versão 1.5' , background='gray99')
         versao.pack(padx=10 , side='bottom' ,pady=10)
         
         # Loop do Tkinter 
@@ -132,19 +132,15 @@ class JanelaPrincipal:
         
         tela = self.janela
         # Carregar a imagem
-        imagem = Image.open(self.__image_caminho(''))
+        imagem = Image.open(self.__image_caminho('img/fundo.png'))
 
         # Redimensionar a imagem para se ajustar à janela
-        largura = tela.winfo_width()
-        altura = tela.winfo_height()
-        imagem_ajustada = imagem.resize((largura, altura), Image.ANTIALIAS)
+        imagem_ajustada = imagem.resize((240, 340), Image.ANTIALIAS)
 
         # Converter a imagem para o formato suportado pelo tkinter
-        imagem_tk = ImageTk.PhotoImage(imagem_ajustada)
+        self.imagem_tk = ImageTk.PhotoImage(imagem_ajustada)
 
-        # Criar um widget de tela de fundo
-        canvas = tk.Canvas(tela, width=largura, height=altura)
-        canvas.pack()
-
-        # Exibir a imagem no widget de tela de fundo
-        canvas.create_image(0, 0, anchor=tk.NW, image=imagem_tk)
+          # Criar um widget de tela de fundo
+        self.canvas = tk.Label(tela, image=self.imagem_tk)
+        self.canvas.place(x=0, y=0, relwidth=1, relheight=1)
+     
