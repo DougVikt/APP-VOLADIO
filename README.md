@@ -1,4 +1,4 @@
-<img src='img/icone_prin.png' width= 300>
+<img src='codigo/img/icone_prin.png' width= 300>
 
 # APP V-Audio :sound: ~ :loud_sound:
 
