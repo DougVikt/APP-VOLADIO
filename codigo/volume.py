@@ -1,7 +1,7 @@
 from pycaw.pycaw import AudioUtilities, ISimpleAudioVolume
 import pymsgbox as pbx
 import tkinter as tk
-
+ 
 
 class VolumeControle :
     def __init__(self) -> None:

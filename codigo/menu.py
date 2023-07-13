@@ -9,10 +9,17 @@ class JanelaPrincipal:
     
     def __init__(self) -> None:
         
+        # Chama a instancia do tkinter
         self.janela = tk.Tk()
+        
+        # Variavel de inicio 
         self.inicio = True
+        
         # Atribuindo o nome na janela
         self.janela.title('V-Audio')
+        
+        # desabilita a maximização da tela
+        self.janela.resizable(False ,False)
         
         
     def menu(self):
@@ -20,7 +27,7 @@ class JanelaPrincipal:
         # Defina o ícone da janela
         self.janela.iconbitmap(self.__image_caminho('img/icone.ico'))
         
-        #Define a imagem de fundo
+        # Define a imagem de fundo
         self.__image_fundo()
         
         # Configura o fundo da janela com a cor 'dodger blue'
@@ -29,8 +36,10 @@ class JanelaPrincipal:
         # Posiciona a janela no centro da tela usando a função 'posicao' e define o tamanho como [240, 300]
         self.__posicao([240, 360])
         
+        # Chama a função para colocar os botões
         self.__botoes()
         
+        # loop principal
         self.janela.mainloop()
         
         
@@ -53,7 +62,7 @@ class JanelaPrincipal:
         # Define a geometria da janela com o tamanho e posição calculados
         tela.geometry(f'{tamanho[0]}x{tamanho[1]}+{posi_x}+{posi_y}')
     
-    
+    # Função para os botões 
     def __botoes(self):
         tela = self.janela
         # Todos são botões do menu 
@@ -67,13 +76,13 @@ class JanelaPrincipal:
         botao_sair.pack(padx=10 , pady=75 )
         
         # Dicionando a versão 
-        versao = tk.Label(tela, text='Versão 1.5' , background='gray99')
+        versao = tk.Label(tela, text='Versão 1.5' , background='gray')
         versao.pack(padx=10 , side='bottom' ,pady=10)
         
         # Loop do Tkinter 
         tela.mainloop()
         
-    
+    # função para definir a existencia impedindo abrir varias janelas 
     def exist(self):  
         if self.janela.winfo_exists() :
             self.inicio = False
@@ -140,7 +149,7 @@ class JanelaPrincipal:
         # Converter a imagem para o formato suportado pelo tkinter
         self.imagem_tk = ImageTk.PhotoImage(imagem_ajustada)
 
-          # Criar um widget de tela de fundo
+        # Criar um widget de tela de fundo
         self.canvas = tk.Label(tela, image=self.imagem_tk)
         self.canvas.place(x=0, y=0, relwidth=1, relheight=1)
      
