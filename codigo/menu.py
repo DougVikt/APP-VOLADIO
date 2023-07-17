@@ -22,25 +22,15 @@ class JanelaPrincipal:
         self.janela.resizable(False ,False)
         
         
-    def menu(self):
         
-        # Defina o ícone da janela
-        self.janela.iconbitmap(self.__image_caminho('img/icone.ico'))
-        
-        # Define a imagem de fundo
-        self.__image_fundo()
-        
-        # Configura o fundo da janela com a cor 'dodger blue'
-        self.janela.configure( bd= 13 , relief= 'ridge' )
+    def __image_caminho(self , nome_imagem:str):
+        # Obtenha o caminho absoluto do diretório do script em execução
+        caminho = os.path.dirname(os.path.abspath(sys.argv[0]))
 
-        # Posiciona a janela no centro da tela usando a função 'posicao' e define o tamanho como [240, 300]
-        self.__posicao([240, 360])
-        
-        # Chama a função para colocar os botões
-        self.__botoes()
-        
-        # loop principal
-        self.janela.mainloop()
+        # Caminho absoluto do arquivo de ícone
+        imagem_pasta = os.path.join(caminho,'img', nome_imagem) 
+    
+        return imagem_pasta
         
         
     # função para simplificar o uso do geometry 
@@ -125,23 +115,13 @@ class JanelaPrincipal:
             pbx.alert('Ate a proxima !', 'AVISO')
             # Fecha o programa
             os._exit(1)
-            
-    
-    def __image_caminho(self , nome_imagem:str):
-        # Obtenha o caminho absoluto do diretório do script em execução
-        caminho = os.path.dirname(os.path.abspath(sys.argv[0]))
-
-        # Caminho absoluto do arquivo de ícone
-        imagem_pasta = os.path.join(caminho, nome_imagem) 
-    
-        return imagem_pasta
         
     
     def __image_fundo(self):
         
         tela = self.janela
         # Carregar a imagem
-        imagem = Image.open(self.__image_caminho('img/fundo.png'))
+        imagem = Image.open(self.__image_caminho('fundo.png'))
 
         # Redimensionar a imagem para se ajustar à janela
         imagem_ajustada = imagem.resize((240, 340), Image.ANTIALIAS)
@@ -152,4 +132,27 @@ class JanelaPrincipal:
         # Criar um widget de tela de fundo
         self.canvas = tk.Label(tela, image=self.imagem_tk)
         self.canvas.place(x=0, y=0, relwidth=1, relheight=1)
-     
+         
+         
+    def menu(self):
+        
+        # Defina o ícone da janela
+        self.janela.iconbitmap(self.__image_caminho('icone.ico'))
+        
+        # Define a imagem de fundo
+        self.__image_fundo()
+        
+        # Configura o fundo da janela com a cor 'dodger blue'
+        self.janela.configure( bd= 13 , relief= 'ridge' )
+
+        # Posiciona a janela no centro da tela usando a função 'posicao' e define o tamanho como [240, 300]
+        self.__posicao([240, 360])
+        
+        # Chama a função para colocar os botões
+        self.__botoes()
+        
+        # loop principal
+        self.janela.mainloop()
+        
+        
+    
