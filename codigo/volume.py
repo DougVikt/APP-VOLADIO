@@ -5,12 +5,12 @@ import tkinter as tk
 
 class VolumeControle :
     def __init__(self) -> None:
-        
-       
+               
         self.mensage_d = True
         self.mensage_a = True
         self.volume_inicial = []
         self.sessions = AudioUtilities.GetAllSessions()
+        
 
     # função para simplificar o uso do geometry 
     def __posicao(self, tamanho=[20, 20], alterar=[0, 0]):
