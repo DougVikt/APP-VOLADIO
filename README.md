@@ -42,6 +42,7 @@ Agradeço a todos que baixarem e usarem a aplicação , tambem para aqueles que 
 + Nova cara
 + Mais rapido na resposta
 + Adição de dois novos comandos ( aumentar/diminuir em 5 )
++ Correção de bugs
 <br>
 
 **BAIXAR NOVA VERSÃO , CLICK NO ICONE** [:inbox_tray:](https://github.com/DougVikt/APP_V-AUDIO/raw/main/executaveis/V-Audio_V-1,5.exe)
