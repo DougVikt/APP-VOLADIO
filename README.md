@@ -32,3 +32,16 @@
 
 # :handshake: CONTRIBUIÇÃO 
 Agradeço a todos que baixarem e usarem a aplicação , tambem para aqueles que mandaram seus feedback . Caso queira participar do projeto com novas ideias estarei de mente a perta para todas .
+
+<br>
+
+----------------------------------------------------------------------------------------------------
+# :arrow_double_up: ATUALIZAÇÃO 1.5 <BR> 
+
+# # O QUE HA DE NOVO ?
++ Nova cara
++ Mais rapido na resposta
++ Adição de dois novos comandos ( aumentar/diminuir em 5 )
+<br>
+
+**BAIXAR NOVA VERSÃO , CLICK NO ICONE** [:inbox_tray:](https://github.com/DougVikt/APP_V-AUDIO/raw/main/executaveis/V-Audio_V-1,5.exe)
