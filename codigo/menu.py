@@ -85,6 +85,7 @@ class JanelaPrincipal:
         msb.showinfo('INSTRUÇÕES :' , 
                     '''Para execução correta da aplicação leia os comandos .
         \nAntes do primeiro uso dos altalhos de aumentar e diminuir o volume , use o atalho de MUDO para igualhar os volumes dos apps , e ao repetir o mesmo atalho o volume voltara ao de antes e configurado .
+        \nCaso o volume esteja diferente em relação ao valor impresso pelo app , repita o processo acima .
         \nSuas funções so entram em vigor quando o menu estiver fechado . 
         \nAs teclas de atalho para aumentar/diminuir em 5 e o '0 ou )' do teclado principal e o '*' do teclado numerico . 
         \nPor favor não excluir o atalho do app , em caso de fechamento o atalho e a opção para abrir o app novamente .  

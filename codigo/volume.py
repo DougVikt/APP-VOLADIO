@@ -9,9 +9,13 @@ class VolumeControle :
         self.mensage_d = True
         self.mensage_a = True
         self.volume_inicial = []
-        self.sessions = AudioUtilities.GetAllSessions()
+        self.__upgrade_sessions()  
         
-
+    def __upgrade_sessions(self):
+        # Função para atualizar os elementos de audios 
+        self.sessions = AudioUtilities.GetAllSessions()
+    
+    
     # função para simplificar o uso do geometry 
     def __posicao(self, tamanho=[20, 20], alterar=[0, 0]):
         
@@ -59,7 +63,8 @@ class VolumeControle :
 
     def aumenta_volume(self ,valor : float):
 
-        try:            
+        try:    
+            self.__upgrade_sessions()        
             # Define o novo volume desejado como 1.0 (volume máximo)
             new_volume = 1.0
             
@@ -93,7 +98,7 @@ class VolumeControle :
     def diminui_volume(self , valor :float):
 
         try:
-           
+            self.__upgrade_sessions()
             # Define o novo volume desejado como 0.0 (volume mínimo)
             new_volume = 0.0
             
