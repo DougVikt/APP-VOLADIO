@@ -45,4 +45,4 @@ Agradeço a todos que baixarem e usarem a aplicação , tambem para aqueles que 
 + Correção de bugs
 <br>
 
-**BAIXAR NOVA VERSÃO , CLICK NO ICONE** [:inbox_tray:](https://github.com/DougVikt/APP_V-AUDIO/raw/main/executaveis/V-Audio_V-1,5.exe)
+**BAIXAR NOVA VERSÃO , CLICK NO ICONE** [:inbox_tray:](https://github.com/DougVikt/APP_V-AUDIO/raw/main/executaveis/V-Audio_V1,5.exe)
